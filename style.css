@@ -78,7 +78,7 @@ h1 {
 
 .popup h2 {
   margin: 0 0 20px;
-  font-size: 32px;
+  font-size: 28px;
 }
 
 .popup button {
@@ -89,6 +89,7 @@ h1 {
   background: #2d89ef;
   color: white;
   cursor: pointer;
+  width: 100%;
 }
 
 .popup button:hover {
