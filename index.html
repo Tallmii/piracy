@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>50 Buttons Website</title>
+
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: #111;
+      color: white;
+      text-align: center;
+      margin: 0;
+      padding: 20px;
+    }
+
+    h1 {
+      margin-bottom: 25px;
+    }
+
+    .container {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+      gap: 12px;
+      max-width: 1000px;
+      margin: auto;
+    }
+
+    button {
+      padding: 15px;
+      border: none;
+      border-radius: 10px;
+      background: #2d89ef;
+      color: white;
+      font-size: 16px;
+      cursor: pointer;
+      transition: 0.2s;
+    }
+
+    button:hover {
+      background: #1b5fa7;
+      transform: scale(1.05);
+    }
+  </style>
+</head>
+<body>
+
+  <h1>50 Redirect Buttons</h1>
+
+  <div class="container" id="buttons"></div>
+
+  <script>
+    // Add links here
+    const links = [
+      "https://google.com",
+      "https://youtube.com",
+      "https://github.com",
+      "", // no link
+      "https://openai.com"
+    ];
+
+    const container = document.getElementById("buttons");
+
+    for (let i = 1; i <= 50; i++) {
+      const btn = document.createElement("button");
+      btn.textContent = "Button " + i;
+
+      btn.onclick = () => {
+        const link = links[i - 1];
+
+        if (link && link.trim() !== "") {
+          window.location.href = link;
+        } else {
+          alert("No link found");
+        }
+      };
+
+      container.appendChild(btn);
+    }
+  </script>
+
+</body>
+</html>
