@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Custom Buttons</title>
+  <title>Big Custom Buttons</title>
 
   <style>
     body {
@@ -15,60 +15,95 @@
     }
 
     h1 {
-      margin-bottom: 20px;
+      margin-bottom: 25px;
     }
 
     .container {
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
-      gap: 12px;
-      max-width: 1000px;
-      margin: auto;
+      grid-template-columns: repeat(auto-fit, minmax(420px, 1fr));
+      gap: 20px;
+      justify-items: center;
     }
 
-    button {
-      padding: 15px;
+    .big-button {
+      width: 400px;
+      height: 600px;
       border: none;
-      border-radius: 10px;
-      background: #2d89ef;
-      color: white;
-      font-size: 16px;
+      border-radius: 20px;
+      overflow: hidden;
+      position: relative;
       cursor: pointer;
-      transition: 0.2s;
+      background-size: cover;
+      background-position: center;
+      transition: transform 0.2s;
     }
 
-    button:hover {
-      background: #1b5fa7;
-      transform: scale(1.05);
+    .big-button:hover {
+      transform: scale(1.03);
+    }
+
+    .overlay {
+      position: absolute;
+      bottom: 0;
+      width: 100%;
+      padding: 20px;
+      background: rgba(0,0,0,0.6);
+      font-size: 28px;
+      font-weight: bold;
+      color: white;
+      box-sizing: border-box;
     }
   </style>
 </head>
 <body>
 
-  <h1>50 Custom Buttons</h1>
+  <h1>Big Custom Image Buttons</h1>
 
   <div class="container" id="buttons"></div>
 
   <script>
-    // Edit button names and links separately here
+    // Customize each button here
     const buttons = [
-      { name: "Google", link: "https://google.com" },
-      { name: "YouTube", link: "https://youtube.com" },
-      { name: "GitHub", link: "https://github.com" },
-      { name: "No Link Button", link: "" },
-      { name: "OpenAI", link: "https://openai.com" }
+      {
+        name: "Google",
+        link: "https://google.com",
+        image: "https://picsum.photos/400/600?random=1"
+      },
+      {
+        name: "YouTube",
+        link: "https://youtube.com",
+        image: "https://picsum.photos/400/600?random=2"
+      },
+      {
+        name: "GitHub",
+        link: "https://github.com",
+        image: "https://picsum.photos/400/600?random=3"
+      },
+      {
+        name: "No Link",
+        link: "",
+        image: "https://picsum.photos/400/600?random=4"
+      }
     ];
 
     const container = document.getElementById("buttons");
 
     for (let i = 0; i < 50; i++) {
+
       const data = buttons[i] || {
         name: `Button ${i + 1}`,
-        link: ""
+        link: "",
+        image: "https://picsum.photos/400/600?random=" + (i + 1)
       };
 
       const btn = document.createElement("button");
-      btn.textContent = data.name;
+      btn.className = "big-button";
+
+      btn.style.backgroundImage = `url('${data.image}')`;
+
+      btn.innerHTML = `
+        <div class="overlay">${data.name}</div>
+      `;
 
       btn.onclick = () => {
         if (data.link && data.link.trim() !== "") {
