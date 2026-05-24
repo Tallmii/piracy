@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>What is mine is yours</title>
+  <title>Big Custom Buttons</title>
 
   <style>
     body {
@@ -12,26 +12,41 @@
       color: white;
       text-align: center;
       padding: 20px;
+      margin: 0;
     }
 
     h1 {
-      margin-bottom: 25px;
+      margin-bottom: 30px;
     }
 
     .container {
       display: grid;
       grid-template-columns: repeat(auto-fit, minmax(420px, 1fr));
-      gap: 20px;
+      gap: 30px;
       justify-items: center;
     }
 
+    /* Wrapper */
+    .button-wrapper {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    /* Name ABOVE the image */
+    .button-title {
+      font-size: 32px;
+      font-weight: bold;
+      margin-bottom: 12px;
+    }
+
+    /* Big image button */
     .big-button {
       width: 400px;
       height: 600px;
       border: none;
       border-radius: 20px;
       overflow: hidden;
-      position: relative;
       cursor: pointer;
       background-size: cover;
       background-position: center;
@@ -42,16 +57,57 @@
       transform: scale(1.03);
     }
 
-    .overlay {
-      position: absolute;
-      bottom: 0;
+    /* Popup background */
+    .popup-bg {
+      position: fixed;
+      top: 0;
+      left: 0;
       width: 100%;
-      padding: 20px;
-      background: rgba(0,0,0,0.6);
-      font-size: 28px;
-      font-weight: bold;
+      height: 100%;
+      background: rgba(0,0,0,0.7);
+
+      display: none;
+
+      justify-content: center;
+      align-items: center;
+
+      z-index: 999;
+    }
+
+    /* Centered popup */
+    .popup {
+      width: 320px;
+      padding: 30px;
+      background: #222;
+      border-radius: 20px;
+
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+
+      text-align: center;
+
+      box-shadow: 0 0 20px rgba(0,0,0,0.5);
+    }
+
+    .popup h2 {
+      margin: 0 0 20px;
+      font-size: 32px;
+    }
+
+    .popup button {
+      padding: 12px 30px;
+      font-size: 18px;
+      border: none;
+      border-radius: 10px;
+      background: #2d89ef;
       color: white;
-      box-sizing: border-box;
+      cursor: pointer;
+    }
+
+    .popup button:hover {
+      background: #1b5fa7;
     }
   </style>
 </head>
@@ -61,13 +117,21 @@
 
   <div class="container" id="buttons"></div>
 
+  <!-- Popup -->
+  <div class="popup-bg" id="popupBg">
+    <div class="popup">
+      <h2>Thanks!</h2>
+      <button onclick="closePopup()">OK</button>
+    </div>
+  </div>
+
   <script>
-    // Customize each button here
+    // Customize buttons here
     const buttons = [
       {
-        name: "Deltarune",
-        link: "https://drive.google.com/uc?export=download&id=1SVaUKRRAXkv2bFahPO8LDkkAUGmiV7t5",
-        image: "https://deltarune.com/assets/images/key-art.gif"
+        name: "Google",
+        link: "https://google.com",
+        image: "https://picsum.photos/400/600?random=1"
       },
       {
         name: "YouTube",
@@ -87,6 +151,24 @@
     ];
 
     const container = document.getElementById("buttons");
+    const popupBg = document.getElementById("popupBg");
+
+    function showPopup(link) {
+      popupBg.style.display = "flex";
+      popupBg.setAttribute("data-link", link);
+    }
+
+    function closePopup() {
+      popupBg.style.display = "none";
+
+      const link = popupBg.getAttribute("data-link");
+
+      if (link && link.trim() !== "") {
+        window.location.href = link;
+      } else {
+        alert("No link found");
+      }
+    }
 
     for (let i = 0; i < 50; i++) {
 
@@ -96,24 +178,28 @@
         image: "https://picsum.photos/400/600?random=" + (i + 1)
       };
 
+      // Wrapper
+      const wrapper = document.createElement("div");
+      wrapper.className = "button-wrapper";
+
+      // Title above button
+      const title = document.createElement("div");
+      title.className = "button-title";
+      title.textContent = data.name;
+
+      // Image button
       const btn = document.createElement("button");
       btn.className = "big-button";
-
       btn.style.backgroundImage = `url('${data.image}')`;
 
-      btn.innerHTML = `
-        <div class="overlay">${data.name}</div>
-      `;
-
       btn.onclick = () => {
-        if (data.link && data.link.trim() !== "") {
-          window.location.href = data.link;
-        } else {
-          alert("No link found");
-        }
+        showPopup(data.link);
       };
 
-      container.appendChild(btn);
+      wrapper.appendChild(title);
+      wrapper.appendChild(btn);
+
+      container.appendChild(wrapper);
     }
   </script>
 
