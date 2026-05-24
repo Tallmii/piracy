@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>50 Buttons Website</title>
+  <title>Custom Buttons</title>
 
   <style>
     body {
@@ -11,17 +11,16 @@
       background: #111;
       color: white;
       text-align: center;
-      margin: 0;
       padding: 20px;
     }
 
     h1 {
-      margin-bottom: 25px;
+      margin-bottom: 20px;
     }
 
     .container {
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+      grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
       gap: 12px;
       max-width: 1000px;
       margin: auto;
@@ -46,31 +45,34 @@
 </head>
 <body>
 
-  <h1>50 Redirect Buttons</h1>
+  <h1>50 Custom Buttons</h1>
 
   <div class="container" id="buttons"></div>
 
   <script>
-    // Add links here
-    const links = [
-      "https://drive.google.com/file/d/1SVaUKRRAXkv2bFahPO8LDkkAUGmiV7t5/view?usp=drive_link",
-      //"https://youtube.com",
-     // "https://github.com",
-      "", // no link
-     // "https://openai.com"
+    // Edit button names and links separately here
+    const buttons = [
+      { name: "Google", link: "https://google.com" },
+      { name: "YouTube", link: "https://youtube.com" },
+      { name: "GitHub", link: "https://github.com" },
+      { name: "No Link Button", link: "" },
+      { name: "OpenAI", link: "https://openai.com" }
     ];
 
     const container = document.getElementById("buttons");
 
-    for (let i = 1; i <= 50; i++) {
+    for (let i = 0; i < 50; i++) {
+      const data = buttons[i] || {
+        name: `Button ${i + 1}`,
+        link: ""
+      };
+
       const btn = document.createElement("button");
-      btn.textContent = "Button " + i;
+      btn.textContent = data.name;
 
       btn.onclick = () => {
-        const link = links[i - 1];
-
-        if (link && link.trim() !== "") {
-          window.location.href = link;
+        if (data.link && data.link.trim() !== "") {
+          window.location.href = data.link;
         } else {
           alert("No link found");
         }
